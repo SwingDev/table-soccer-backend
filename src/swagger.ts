@@ -6,6 +6,12 @@ export function initSwagger(app: INestApplication): void {
     .setTitle('Table soccer API')
     .setDescription('API for a table soccer application.')
     .setContact('Swing Development', undefined, 'hello@swing.dev')
+    .addBearerAuth({
+      type: 'apiKey',
+      in: 'header',
+      bearerFormat: 'JWT',
+      name: 'Authorization'
+    })
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
