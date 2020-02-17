@@ -7,7 +7,7 @@ import { User } from './user.entity';
 import { UserRepository } from './user.repository';
 
 @Injectable()
-export class UserService extends CRUDService<User> {
+export class UserService extends CRUDService<User, string> {
   constructor(
     repository: UserRepository
   ) {

@@ -8,6 +8,7 @@ import { ScoreboardModule } from './scoreboard/scoreboard.module';
 import { UserModule } from './user/user.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { DatabaseModule } from './database/database.module';
+import { ScoreModule } from './score/score.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { DatabaseModule } from './database/database.module';
     }),
     AuthenticationModule,
     DatabaseModule,
+    ScoreModule,
   ],
 })
 export class AppModule {}
