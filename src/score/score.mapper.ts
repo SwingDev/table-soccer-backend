@@ -16,6 +16,7 @@ export class ScoreMapper {
       this.userService.find(scoreDto.loser),
     ])
 
+    console.log(scoreDto);
     return Object.assign(new Score(), {
       winner,
       loser,
@@ -24,7 +25,8 @@ export class ScoreMapper {
     });
   }
 
-  public async mapToDto(score: Score): Promise<ScoreDto> {
+  public mapToDto(score: Score): ScoreDto {
+    console.log('beforeMapToDTO', score);
     return Object.assign(new ScoreDto(), {
       winner: score.winner.firebaseId,
       loser: score.loser.firebaseId,

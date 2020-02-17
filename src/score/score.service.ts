@@ -14,6 +14,7 @@ export class ScoreService extends CRUDService<Score> {
   }
 
   public async takeNewScoreIntoAccount(score: Score): Promise<Score> {
+    console.log('SCORE BEFORE save', score);
     return await this.save(score);
   }
 }

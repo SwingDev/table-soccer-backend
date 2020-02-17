@@ -1,15 +1,15 @@
 import { User } from 'src/user/user.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Score {
   @PrimaryGeneratedColumn({ type: 'int' })
   public readonly id: number;
 
-  @OneToOne(() => User, user => user.firebaseId)
+  @ManyToOne(() => User, user => user.firebaseId, { eager: true })
   public readonly winner: User;
 
-  @OneToOne(() => User, user => user.firebaseId)
+  @ManyToOne(() => User, user => user.firebaseId, { eager: true })
   public readonly loser: User;
 
   @Column({ type: 'int' })

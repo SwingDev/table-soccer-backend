@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 
 import { ScoreDto } from './score.dto';
@@ -23,5 +23,15 @@ export class ScoreController {
     return this.scoreMapper.mapToDto(
       await this.scoreService.takeNewScoreIntoAccount(score)
     );
+  }
+
+  @Get('/history')
+  @ApiOperation({
+    description: 'List all the scores.',
+  })
+  public async getScoreHistory() {
+    const history = await this.scoreService.list();
+
+    return history.map((score) => this.scoreMapper.mapToDto(score));
   }
 }
