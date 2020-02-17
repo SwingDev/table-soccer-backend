@@ -2,14 +2,14 @@ import { CRUDService } from 'src/common/crud.service';
 
 import { Injectable } from '@nestjs/common';
 
-import { Scoreboard } from './scoreboard.entity';
 import { Score } from '../score/score.entity';
+import { Scoreboard } from './scoreboard.entity';
 import { ScoreboardRepository } from './scoreboard.repository';
 
-const qFactorScale: number = 400;
-const averageScore: number = 1400;
-const kLowScore: number = 30;
-const kHighScore: number = 10;
+const qFactorScale = 400;
+const averageScore = 1400;
+const kLowScore = 30;
+const kHighScore = 10;
 
 @Injectable()
 export class ScoreboardService extends CRUDService<Scoreboard> {

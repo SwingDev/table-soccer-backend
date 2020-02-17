@@ -1,10 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 
+import { ScoreboardService } from '../scoreboard/scoreboard.service';
 import { ScoreDto } from './score.dto';
 import { ScoreMapper } from './score.mapper';
 import { ScoreService } from './score.service';
-import { ScoreboardService } from '../scoreboard/scoreboard.service';
 
 @ApiBearerAuth()
 @Controller()
@@ -12,7 +12,6 @@ export class ScoreController {
   constructor(
     private readonly scoreMapper: ScoreMapper,
     private readonly scoreService: ScoreService,
-    private readonly scoreboardService: ScoreboardService,
   ) { }
 
   @Post('/')

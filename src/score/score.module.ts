@@ -1,3 +1,4 @@
+import { ScoreboardModule } from 'src/scoreboard/scoreboard.module';
 import { UserModule } from 'src/user/user.module';
 
 import { Module } from '@nestjs/common';
@@ -7,7 +8,6 @@ import { ScoreController } from './score.controller';
 import { ScoreMapper } from './score.mapper';
 import { ScoreRepository } from './score.repository';
 import { ScoreService } from './score.service';
-import { ScoreboardModule } from '../scoreboard/scoreboard.module';
 
 @Module({
   providers: [
@@ -19,6 +19,7 @@ import { ScoreboardModule } from '../scoreboard/scoreboard.module';
   ],
   imports: [
     UserModule,
+    ScoreboardModule,
     TypeOrmModule.forFeature([ScoreRepository]),
   ]
 })
