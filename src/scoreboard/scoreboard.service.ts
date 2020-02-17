@@ -55,7 +55,6 @@ export class ScoreboardService extends CRUDService<Scoreboard> {
 
     let loser: Scoreboard = await this.repository.findOne({user: score.loser});
     if (loser === void(0)) {
-      console.log('Create user LOSER');
       loser = await this.repository.save(Object.assign(new Scoreboard(), {
         user: score.loser,
         score: averageScore,
@@ -83,9 +82,9 @@ export class ScoreboardService extends CRUDService<Scoreboard> {
 
     return this.repository.save(players.map(player => {
       if (player.user.firebaseId === score.winner.firebaseId) {
-        player.score = wNewScore * scoreScaler;
+        player.score = wNewScore;
       } else if (player.user.firebaseId === score.loser.firebaseId) {
-        player.score = lNewScore * scoreScaler;
+        player.score = lNewScore;
       }
       player.score = player.score * scoreScaler;
       return player;
