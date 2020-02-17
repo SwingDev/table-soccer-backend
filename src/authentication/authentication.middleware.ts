@@ -1,10 +1,16 @@
 import { Request, Response } from 'express';
+import { UserService } from 'src/user/user.service';
 
-import { HttpException, HttpStatus, NestMiddleware } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
 
 import { firebase } from './firebase';
 
+@Injectable()
 export class FirebaseAuthMiddleware implements NestMiddleware {
+  constructor(
+    private readonly userService: UserService,
+  ) {}
+
   public async use(req: Request, res: Response, next: () => void) {
     const { authorization }= req.headers;
 
@@ -19,6 +25,8 @@ export class FirebaseAuthMiddleware implements NestMiddleware {
       .verifyIdToken(token);
 
       req.firebaseUser = user;
+
+      await this.userService.ensureUser(req.firebaseUser);
     } catch (err) {
       throw new HttpException({ message: 'Input data validation failed!' }, HttpStatus.UNAUTHORIZED);
     }
