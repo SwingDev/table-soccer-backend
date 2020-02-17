@@ -17,5 +17,6 @@ export class ScoreController {
   })
   public async addScore(@Body() scoreDto: ScoreDto) {
     const score = await this.scoreMapper.mapToEntity(scoreDto);
+
   }
 }
