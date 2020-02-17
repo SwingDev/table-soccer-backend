@@ -18,7 +18,7 @@ export class UserService extends CRUDService<User, string> {
     let user = await this.repository.findOne(firebaseUser.uid);
 
     if (!user) {
-      user = await this.repository.create(Object.assign(new User(), {
+      user = await this.repository.save(Object.assign(new User(), {
         firebaseId: firebaseUser.uid,
         email: firebaseUser.email,
         name: firebaseUser.name,
