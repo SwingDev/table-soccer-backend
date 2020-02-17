@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+# GCloud
+app.yaml
+
 # Logs
 logs
 *.log
