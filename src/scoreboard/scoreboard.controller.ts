@@ -17,7 +17,11 @@ export class ScoreboardController {
     description: 'Scoreboard.'
   })
   public async showScoreboard() {
-    const scoreboards = await this.scoreboardService.list();
+    const scoreboards = await this.scoreboardService.list({
+      order: {
+        score: 'DESC'
+      }
+    });
 
     return scoreboards.map(
       scoreboard => this.scoreboardMapper.mapToDto(scoreboard)

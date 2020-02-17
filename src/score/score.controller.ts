@@ -31,7 +31,11 @@ export class ScoreController {
     description: 'List all the scores.',
   })
   public async getScoreHistory() {
-    const history = await this.scoreService.list();
+    const history = await this.scoreService.list({
+      order: {
+        timestamp: 'DESC'
+      }
+    });
 
     return history.map((score) => this.scoreMapper.mapToDto(score));
   }

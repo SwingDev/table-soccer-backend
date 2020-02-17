@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 
 /**
  * Base class for all services based on crud
@@ -14,8 +14,8 @@ export class CRUDService<E, K=number> {
     return this.repository.findOne(id);
   }
 
-  public async list(): Promise<E[]> {
-    return this.repository.find();
+  public async list(options?: FindManyOptions): Promise<E[]> {
+    return this.repository.find(options);
   }
 
   // tslint:disable-next-line: no-reserved-keywords
