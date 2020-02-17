@@ -3,7 +3,8 @@ FROM node:12.16-alpine AS dev
 # Ensure good permissions and create required directories
 RUN chown -R root /opt && \
     chmod 755 /usr/local/bin/* && \
-    mkdir -p /app
+    mkdir -p /app && \
+    apk add python
 
 WORKDIR /app
 
