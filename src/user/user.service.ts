@@ -1,9 +1,12 @@
 import * as admin from 'firebase-admin';
 
+import { Injectable } from '@nestjs/common';
+
 import { CRUDService } from '../common/crud.service';
 import { User } from './user.entity';
 import { UserRepository } from './user.repository';
 
+@Injectable()
 export class UserService extends CRUDService<User> {
   constructor(
     repository: UserRepository
