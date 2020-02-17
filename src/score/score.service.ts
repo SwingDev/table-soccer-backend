@@ -13,7 +13,7 @@ export class ScoreService extends CRUDService<Score> {
     super(repository);
   }
 
-  public async takeNewScoreIntoAccount(score: Score) {
-    await this.save(score);
+  public async takeNewScoreIntoAccount(score: Score): Promise<Score> {
+    return await this.save(score);
   }
 }
