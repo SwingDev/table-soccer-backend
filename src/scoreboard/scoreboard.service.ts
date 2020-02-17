@@ -45,8 +45,22 @@ export class ScoreboardService extends CRUDService<Scoreboard> {
   }
 
   public async takeNewScoreIntoAccount(score: Score): Promise<Scoreboard[]> {
-    const winner: Scoreboard = await this.repository.findOne({user: score.winner});
-    const loser: Scoreboard = await this.repository.findOne({user: score.loser});
+    let winner: Scoreboard = await this.repository.findOne({user: score.winner});
+    if (winner === void(0)) {
+      winner = await this.repository.save(Object.assign(new Scoreboard(), {
+        user: score.winner,
+        score: averageScore,
+      }));
+    }
+
+    let loser: Scoreboard = await this.repository.findOne({user: score.loser});
+    if (loser === void(0)) {
+      console.log('Create user LOSER');
+      loser = await this.repository.save(Object.assign(new Scoreboard(), {
+        user: score.loser,
+        score: averageScore,
+      }));
+    }
 
     const wNewScore: number = this.newRating(
       winner.score,
@@ -61,7 +75,6 @@ export class ScoreboardService extends CRUDService<Scoreboard> {
     );
 
     const players: Scoreboard[] = await this.repository.find();
-
     const newTotalScore: number = players.length * averageScore
       - winner.score - loser.score
       + wNewScore + lNewScore;
@@ -70,9 +83,9 @@ export class ScoreboardService extends CRUDService<Scoreboard> {
 
     return this.repository.save(players.map(player => {
       if (player.user.firebaseId === score.winner.firebaseId) {
-        player.score = wNewScore;
+        player.score = wNewScore * scoreScaler;
       } else if (player.user.firebaseId === score.loser.firebaseId) {
-        player.score = lNewScore;
+        player.score = lNewScore * scoreScaler;
       }
       player.score = player.score * scoreScaler;
       return player;
