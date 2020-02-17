@@ -1,4 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { Scoreboard } from 'src/scoreboard/scoreboard.entity';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
 
 import { Score } from '../score/score.entity';
 
@@ -15,6 +16,9 @@ export class User {
 
   @Column({ type: 'text' })
   public readonly avatar: string;
+
+  @OneToOne(() => Scoreboard, scoreboard => scoreboard.id)
+  private readonly scoreboard: Scoreboard;
 
   @OneToMany(() => Score, score => score.winner)
   private readonly matchesWon: Score[];

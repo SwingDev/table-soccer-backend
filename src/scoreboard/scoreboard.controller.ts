@@ -1,18 +1,26 @@
-import { Request } from 'express';
-
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+
+import { ScoreboardMapper } from './scoreboard.mapper';
+import { ScoreboardService } from './scoreboard.service';
 
 @ApiBearerAuth()
 @Controller()
 export class ScoreboardController {
+  constructor(
+    private readonly scoreboardService: ScoreboardService,
+    private readonly scoreboardMapper: ScoreboardMapper,
+  ) { }
+
   @Get('/')
   @ApiOperation({
-    description: 'Test route.'
+    description: 'Scoreboard.'
   })
-  public test(@Req() req: Request) {
-    return {
-      user: req.firebaseUser,
-    };
+  public async showScoreboard() {
+    const scoreboards = await this.scoreboardService.list();
+
+    return scoreboards.map(
+      scoreboard => this.scoreboardMapper.mapToDto(scoreboard)
+    );
   }
 }
