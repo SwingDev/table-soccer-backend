@@ -15,6 +15,6 @@ export class Score {
   @Column({ type: 'int' })
   public readonly loserScore: number;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'int8', unsigned: true })
   public readonly timestamp: number;
 }

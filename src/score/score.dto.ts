@@ -29,7 +29,7 @@ export class ScoreDto {
   @IsInt()
   @ApiProperty({
     name: 'timestamp',
-    description: 'Timestamp in miliseconds since epoch.'
+    description: 'Timestamp in seconds since epoch.'
   })
   @Min(0)
   public readonly timestamp: number;
